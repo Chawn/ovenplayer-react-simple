@@ -1,4 +1,9 @@
-# React + TypeScript + Vite + Tailwind
+# How to start app
+- `yarn install`
+- `yarn dev`
+
+
+# Template: React + TypeScript + Vite + Tailwind
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
