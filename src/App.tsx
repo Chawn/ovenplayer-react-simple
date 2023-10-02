@@ -1,34 +1,23 @@
-import OvenPlayer from 'ovenplayer';
 import { useEffect } from 'react';
+import OvenPlayer from 'ovenplayer';
 
 export default function App() {
 	useEffect(() => {
-		OvenPlayer.create('player1', {
-			autoStart: true,
-			autoFallback: true,
-			mute: false,
-			sources: [
-				{
-					type: 'webrtc',
-					file: 'ws://your.path.here',
-				},
-			],
+		/* Loop 64 tims */
+		Array.from(Array(64).keys()).forEach((_, index) => {
+			const test = OvenPlayer.create(`player${index}`, {
+				autoStart: true,
+				autoFallback: true,
+				mute: false,
+				sources: [
+					{
+						type: 'webrtc',
+						file: 'ws://10.100.100.3:3333/app/test_ptz_cam',
+					},
+				],
+			});
+			test.play();
 		});
-
-		OvenPlayer.create('player2', {
-			autoStart: true,
-			autoFallback: true,
-			mute: false,
-			sources: [
-				{
-					type: 'webrtc',
-					file: 'ws://your.path.here',
-				},
-			],
-		});
-
-		// console.log('videoSrc', videoSrc);
-		// videoSrc.play();
 	}, []);
 	return (
 		<div>
@@ -39,13 +28,18 @@ export default function App() {
 
 export const MyComponent = () => {
 	return (
-		<div className='flex'>
-			<div className='w-[500px]'>
+		<div className='grid grid-cols-8'>
+			{/* Loop 64 times */}
+			{Array.from(Array(64).keys()).map((_, index) => {
+				return (
+					<div key={index} className='cols-span-1 border-2 border-green-400'>
+						<div id={`player${index}`}></div>
+					</div>
+				);
+			})}
+			{/* <div className='w-[500px]'>
 				<div id='player1'></div>
-			</div>
-			<div className='w-[500px]'>
-				<div id='player2'></div>
-			</div>
+			</div> */}
 		</div>
 	);
 };
